@@ -5,31 +5,18 @@ This contais data preprocessing steps and the API code for RESTful endpoint
 
 ### Dependencies
 click==6.7
-
 Flask==1.0.2
-
 itsdangerous==0.24
-
 Jinja2==2.10
-
 MarkupSafe==1.0
-
 numpy==1.15.1
-
 pandas==0.23.4
-
 python-dateutil==2.7.3
-
 pytz==2018.5
-
 scikit-learn==0.19.2
-
 scipy==1.1.0
-
 six==1.11.0
-
 sklearn==0.0
-
 Werkzeug==0.14.1
 
 ### RESTful API Endpoint:
