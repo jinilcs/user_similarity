@@ -50,7 +50,7 @@ http://ec2-18-212-6-232.compute-1.amazonaws.com/similarusers/156?numusers=200 =>
 
 #### LRUCache:
 
-This is included as part of API call. Recently accessed user hanlde responses will be cached. And least recently used will be removed from the cache. Implementation is available in usersim/cache.py
+This is included as part of API call. Recently accessed user handle responses will be cached. And least recently used will be removed from the cache. Implementation is available in usersim/cache.py
 
 ### Notes:
 
@@ -60,6 +60,7 @@ Cosine similarity function has been used in this project to find the similar use
 #### Big data recommendations:
 Distributed file systems like HDFS for storage
 Spark SQL and Dataframe to preprocess the data
+Spark Mllib will be really good for machine learning models on big data stored in distributed file systems
 Memory cache to reduce the latency of responses (LRUCache is implemented in this project)
 
 #### Other data to collect:
