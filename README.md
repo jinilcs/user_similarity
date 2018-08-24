@@ -52,14 +52,18 @@ http://ec2-18-212-6-232.compute-1.amazonaws.com/similarusers/156?numusers=200 =>
 
 This is included as part of API call. Recently accessed user hanlde responses will be cached. And least recently used will be removed from the cache. Implementation is available in usersim/cache.py
 
-### Other Notes:
+### Notes:
 
 #### Similarity calculation:
-I have used cosine similarity to find the similar users. The data set I used here will become a huge sparse matrix after preprocessing. Cosine similarity works really good on big sparse dataset.
+Cosine similarity function has been used in this project to find the similar users. The data set becomes a huge sparse matrix after preprocessing. Cosine similarity works really good on big sparse dataset.
 
 #### Big data recommendations:
-Here I used pandas to preprocess the data. For huge data set, we should consider distributed file systems like HDFS for storage and SparkSQL dataframes to preprocess the data. 
-I have used caching on RESTful API, so frequent requests will be faster.
+Distributed file systems like HDFS for storage
+Spark SQL and Dataframe to preprocess the data
+Memory cache to reduce the latency of responses (LRUCache is implemented in this project)
 
 #### Other data to collect:
-As this is to find similar users, we will be able to create better models if we have user's personal details (age, sex, location, occupation etc). Ratings given by user to each course will be a very good data for this model. Or if we have user comments on courses, we could do sentiment analysis using NLP as well
+The below set of data would be more useful to find the similar users
+- User personal details (age, sex, location, occupation etc)
+- Course ratings given by users
+- User review comments on courses (for sentiment analysis)
