@@ -1,4 +1,4 @@
-# user_similarity
+# User Similarity
 
 This project is to find similar users based on user interests on different courses.
 This consists of data preprocessing steps and the API code for RESTful endpoint to get similar users
