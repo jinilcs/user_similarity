@@ -10,7 +10,7 @@ from cache import LRUCache
 app = Flask(__name__)
 db_file = '../db/usersim.sqlite'
 cache = LRUCache(capacity=50)
-users_cache_size = 30
+users_cache_size = 100
 sql_batch_size = 1000
 
 def send_error(message, status):
@@ -18,9 +18,8 @@ def send_error(message, status):
     To send an error response to client
     """
     data = {}
-    data['error'] = 1
     data['error_text'] = message
-    data['status'] = status
+    data['users'] = []
     response = jsonify(data)
     response.status_code = status
     return response
@@ -57,13 +56,12 @@ def get_similar_users(user_handle):
     conn = None
     cur = None
     
-    similar_users = {'users':[], 'error':0, 'error_text':''}
+    similar_users = {}
     
     if num_users <= users_cache_size:
         is_found, user_list = cache.lookup(user_handle)
         if is_found:
             similar_users['users'] = user_list[:num_users]
-            similar_users['status'] = 200
             return jsonify(similar_users)
     
     try:
@@ -92,7 +90,7 @@ def get_similar_users(user_handle):
                 minheap.append((sim, int(user_id)))
         
         heapq.heapify(minheap)
-                
+
         while True:
             users = cur.fetchmany(sql_batch_size)
             if not users:
@@ -118,8 +116,8 @@ def get_similar_users(user_handle):
     user_list = [s[1] for s in heapq.nlargest(fetch_size-1, minheap)]
     cache.insert(user_handle, user_list[:users_cache_size])
     similar_users['users'] = user_list[:num_users]
-    similar_users['status'] = 200
     return jsonify(similar_users)
 
 if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=9080)
+        app.run(host='0.0.0.0', port=9080)
+
